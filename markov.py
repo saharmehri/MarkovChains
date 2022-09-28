@@ -10,9 +10,9 @@ def open_and_read_file(file_path):
     the file's contents as one string of text.
     """
 
-    # your code goes here
-
-    return 'Contents of your file as one long string'
+    green_eggs_text = open("green-eggs.txt").read()
+   # print(green_eggs_text)
+    return green_eggs_text
 
 
 def make_chains(text_string):
@@ -38,11 +38,24 @@ def make_chains(text_string):
 
         >>> chains[('there','juanita')]
         [None]
-    """
+    """ 
 
     chains = {}
 
-    # your code goes here
+    words = text_string.split()
+
+
+    for i in range(len(words) -2):
+        key = (words[i], words[i+1])
+        value = words[i+2]
+        # print(value)
+        # chains.append(key)
+        if key not in chains:
+            chains[key]= []
+        chains[key].append(value)
+
+        # print(chains)
+        
 
     return chains
 
@@ -52,20 +65,34 @@ def make_text(chains):
 
     words = []
 
-    # your code goes here
+    random_key = list(chains.keys()) #prints lits of keys
+    print(random_key)
+    rk = choice(random_key) #pulls random key
+    print(rk)
+    #words.append(rk)
+ 
+    
+    for i in range(len(words)-1): 
+       start = words[i+1] #(a, fox)
+       next_item = choice(chains[start])
 
-    return ' '.join(words)
+        #words.append(rk)
+    # print(start)
+    # print(words)
+    print(words[("a", "fox?")])
+
+    # return ''.join(words)
 
 
 input_path = 'green-eggs.txt'
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
-
+#print(input_text)
 # Get a Markov chain
 chains = make_chains(input_text)
 
-# Produce random text
+# # Produce random text
 random_text = make_text(chains)
 
 print(random_text)
